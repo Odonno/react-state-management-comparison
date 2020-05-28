@@ -5,6 +5,7 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import { teal } from '@material-ui/core/colors';
 import './index.css';
 import App from './App';
+import { StoreProvider } from './StoreContext';
 const { RecoilRoot } = require('recoil');
 
 const theme = createMuiTheme({
@@ -18,7 +19,9 @@ const theme = createMuiTheme({
 ReactDOM.render(
     <ThemeProvider theme={theme}>
         <RecoilRoot>
-            <App />
+            <StoreProvider>
+                <App />
+            </StoreProvider>
         </RecoilRoot>
     </ThemeProvider>,
     document.getElementById('root')

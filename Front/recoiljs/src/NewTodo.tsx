@@ -1,15 +1,12 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React from 'react';
 import { TextField } from '@material-ui/core';
-import { todoListState } from './Atoms';
-import { apiUrl } from './constants';
-import { Todo } from './Models';
-const { useSetRecoilState } = require('recoil');
+import { useStore } from './StoreContext';
 
 type Props = {
 };
 
 const NewTodo = (props: Props) => {
-    const setTodos: Dispatch<SetStateAction<Todo[]>> = useSetRecoilState(todoListState);
+    const { createTodo } = useStore();
 
     const handleNewTodoKeyPressed = (e: React.SyntheticEvent<any, Event>) => {
         const inputTarget = e.target as HTMLInputElement;
@@ -17,17 +14,8 @@ const NewTodo = (props: Props) => {
         const eventKey = (e as any).key;
 
         if (inputTarget && eventKey && eventKey.toLowerCase() === 'enter' && value) {
-            const payload = {
-                content: value
-            };
-
-            fetch(`${apiUrl}/todos`, {
-                method: 'POST',
-                body: JSON.stringify(payload)
-            })
-                .then(response => response.json())
-                .then(todo => {
-                    setTodos(todos => todos.concat(todo));
+            createTodo(value)
+                .finally(() => {
                     inputTarget.value = '';
                 });
         }

@@ -1,11 +1,9 @@
 import React from 'react';
 import TodoItem from './TodoItem';
-import { todoListState } from './Atoms';
-import { Todo } from './Models';
-const { useRecoilValue } = require('recoil');
+import { useTodos } from './StoreContext';
 
 const TodosView = () => {
-    const todos: Todo[] = useRecoilValue(todoListState);
+    const todos = useTodos();
 
     return (
         <>
