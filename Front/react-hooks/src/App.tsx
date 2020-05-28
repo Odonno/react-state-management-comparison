@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import logo from './logo.png';
 import './App.css';
 import { Todo } from './Models';
 import { apiUrl } from './constants';
+import Logo from './Logo';
 import TodoItem from './TodoItem';
 import NewTodo from './NewTodo';
 
@@ -18,7 +18,7 @@ const App = () => {
   return (
     <div className="app">
       <header className="header">
-        <img src={logo} style={{ height: 50, marginBottom: 40 }} alt="logo" />
+        <Logo />
 
         {todos.map(todo => <TodoItem key={todo.id} todo={todo} setTodos={setTodos} />)}
 

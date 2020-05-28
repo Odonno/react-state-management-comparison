@@ -1,6 +1,6 @@
 import React from 'react';
-import logo from './logo.png';
 import './App.css';
+import Logo from './Logo';
 import TodoItem from './TodoItem';
 import NewTodo from './NewTodo';
 import { useObserver } from 'mobx-react-lite';
@@ -12,7 +12,7 @@ const App = () => {
   return useObserver(() =>
     <div className="app">
       <header className="header">
-        <img src={logo} style={{ height: 50, marginBottom: 40 }} alt="logo" />
+        <Logo />
 
         {todoList.list.map(todo => <TodoItem key={todo.id} todo={todo} />)}
 
