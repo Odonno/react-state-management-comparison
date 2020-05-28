@@ -16,6 +16,24 @@ const TodoItem = (props: Props) => {
         setTodos
     } = props;
 
+    const handleTodoChanged = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const inputTarget = e.target as HTMLInputElement;
+
+        if (inputTarget) {
+            setTodos(todos => {
+                return todos.map(t => {
+                    if (t.id === todo.id) {
+                        return {
+                            ...todo,
+                            content: inputTarget.value
+                        };
+                    }
+                    return t;
+                });
+            });
+        }
+    }
+
     const handleTodoBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>, id: number) => {
         const inputTarget = e.target as HTMLInputElement;
 
@@ -62,6 +80,7 @@ const TodoItem = (props: Props) => {
                 style={{ width: 350 }}
                 defaultValue={todo.content}
                 inputProps={{ 'aria-label': 'description' }}
+                onChange={e => handleTodoChanged(e)}
                 onBlur={e => handleTodoBlur(e, todo.id)}
             />
             <IconButton
