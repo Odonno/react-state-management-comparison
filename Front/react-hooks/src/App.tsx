@@ -3,7 +3,7 @@ import './App.css';
 import { Todo } from './Models';
 import { apiUrl } from './constants';
 import Logo from './Logo';
-import TodoItem from './TodoItem';
+import TodosView from './TodosView';
 import NewTodo from './NewTodo';
 
 const App = () => {
@@ -20,7 +20,7 @@ const App = () => {
       <header className="header">
         <Logo />
 
-        {todos.map(todo => <TodoItem key={todo.id} todo={todo} setTodos={setTodos} />)}
+        <TodosView todos={todos} setTodos={setTodos} />
 
         <NewTodo setTodos={setTodos} />
       </header>

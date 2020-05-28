@@ -1,6 +1,7 @@
 import React from 'react';
 import { TextField } from '@material-ui/core';
 import { useStore } from './StoreContext';
+import { useObserver } from 'mobx-react-lite';
 
 type Props = {
 };
@@ -21,7 +22,7 @@ const NewTodo = (props: Props) => {
         }
     }
 
-    return (
+    return useObserver(() =>
         <TextField
             label="New things to do?"
             onKeyPress={e => handleNewTodoKeyPressed(e)}
