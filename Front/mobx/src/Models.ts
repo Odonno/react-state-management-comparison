@@ -1,4 +1,4 @@
-import { observable, action, runInAction } from 'mobx';
+import { observable, action, runInAction, autorun } from 'mobx';
 import { apiUrl } from './constants';
 import { usePromise } from './Promise';
 
@@ -14,6 +14,12 @@ export class Todo {
 
 export class TodoList {
     @observable.shallow list: Todo[] = [];
+
+    constructor() {
+        autorun(() => {
+            this.load();
+        });
+    }
 
     @action
     async load() {
