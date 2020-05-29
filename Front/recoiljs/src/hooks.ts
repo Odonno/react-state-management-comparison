@@ -1,27 +1,15 @@
-import React, { createContext, ReactNode, useContext, useCallback } from "react";
+import { useCallback } from "react";
 import { apiUrl } from "./constants";
 import { Todo } from "./Models";
 import { todoListState } from "./Atoms";
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
-export type StoreContextState = {
-    loadTodos: () => Promise<void>;
-    createTodo: (content: string) => Promise<void>;
-    changeContent: (todo: Todo, content: string) => void;
-    updateTodo: (id: number, content: string) => Promise<void>;
-    deleteTodo: (id: number) => Promise<void>;
-};
+export const useTodos = () => useRecoilValue(todoListState);
 
-const StoreContext = createContext<StoreContextState>({} as StoreContextState);
-
-type StoreContextProviderProps = {
-    children?: ReactNode;
-};
-
-export const StoreProvider = ({ children }: StoreContextProviderProps) => {
+export const useLoadTodos = () => {
     const setTodos = useSetRecoilState(todoListState);
 
-    const loadTodos = useCallback(
+    return useCallback(
         async () => {
             const response = await fetch(`${apiUrl}/todos`);
             const results = await response.json();
@@ -29,8 +17,12 @@ export const StoreProvider = ({ children }: StoreContextProviderProps) => {
         },
         [setTodos]
     );
+}
 
-    const createTodo = useCallback(
+export const useCreateTodo = () => {
+    const setTodos = useSetRecoilState(todoListState);
+
+    return useCallback(
         async (content: string) => {
             const payload = {
                 content
@@ -45,8 +37,12 @@ export const StoreProvider = ({ children }: StoreContextProviderProps) => {
         },
         [setTodos]
     );
+}
 
-    const changeContent = useCallback(
+export const useChangeContent = () => {
+    const setTodos = useSetRecoilState(todoListState);
+
+    return useCallback(
         (todo: Todo, content: string) => {
             setTodos(todos => {
                 return todos.map(t => {
@@ -62,8 +58,12 @@ export const StoreProvider = ({ children }: StoreContextProviderProps) => {
         },
         [setTodos]
     );
+}
 
-    const updateTodo = useCallback(
+export const useUpdateTodo = () => {
+    const setTodos = useSetRecoilState(todoListState);
+
+    return useCallback(
         async (id: number, content: string) => {
             const payload = {
                 id,
@@ -86,8 +86,12 @@ export const StoreProvider = ({ children }: StoreContextProviderProps) => {
         },
         [setTodos]
     );
+}
 
-    const deleteTodo = useCallback(
+export const useDeleteTodo = () => {
+    const setTodos = useSetRecoilState(todoListState);
+
+    return useCallback(
         async (id: number) => {
             await fetch(`${apiUrl}/todos/${id}`, {
                 method: 'DELETE'
@@ -98,22 +102,4 @@ export const StoreProvider = ({ children }: StoreContextProviderProps) => {
         },
         [setTodos]
     );
-
-    const state = {
-        loadTodos,
-        createTodo,
-        changeContent,
-        updateTodo,
-        deleteTodo
-    };
-
-    return (
-        <StoreContext.Provider value={state}>
-            {children}
-        </StoreContext.Provider>
-    );
-};
-
-export const useStore = () => useContext(StoreContext);
-
-export const useTodos = (): Todo[] => useRecoilValue(todoListState);
+}

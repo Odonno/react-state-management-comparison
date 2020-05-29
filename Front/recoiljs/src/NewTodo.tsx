@@ -1,12 +1,12 @@
 import React from 'react';
 import { TextField } from '@material-ui/core';
-import { useStore } from './StoreContext';
+import { useCreateTodo } from './hooks';
 
 type Props = {
 };
 
 const NewTodo = (props: Props) => {
-    const { createTodo } = useStore();
+    const createTodo = useCreateTodo();
 
     const handleNewTodoKeyPressed = (e: React.SyntheticEvent<any, Event>) => {
         const inputTarget = e.target as HTMLInputElement;

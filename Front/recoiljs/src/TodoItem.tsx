@@ -3,7 +3,7 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutline';
 import { Input } from '@material-ui/core';
 import { Todo } from './Models';
-import { useStore } from './StoreContext';
+import { useChangeContent, useUpdateTodo, useDeleteTodo } from './hooks';
 
 type Props = {
     todo: Todo;
@@ -14,11 +14,9 @@ const TodoItem = (props: Props) => {
         todo
     } = props;
 
-    const {
-        changeContent,
-        updateTodo,
-        deleteTodo
-    } = useStore();
+    const changeContent = useChangeContent();
+    const updateTodo = useUpdateTodo();
+    const deleteTodo = useDeleteTodo();
     
     const handleTodoChanged = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const inputTarget = e.target as HTMLInputElement;

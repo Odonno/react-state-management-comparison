@@ -1,6 +1,6 @@
 import React from 'react';
 import TodoItem from './TodoItem';
-import { useTodos } from './StoreContext';
+import { useTodos } from './hooks';
 
 const TodosView = () => {
     const todos = useTodos();

@@ -3,10 +3,10 @@ import './App.css';
 import Logo from './Logo';
 import NewTodo from './NewTodo';
 import TodosView from './TodosView';
-import { useStore } from './StoreContext';
+import { useLoadTodos } from './hooks';
 
 const App = () => {  
-  const { loadTodos } = useStore();
+  const loadTodos = useLoadTodos();
 
   useEffect(() => {
     loadTodos();
