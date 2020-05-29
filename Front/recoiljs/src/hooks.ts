@@ -1,29 +1,22 @@
-import { useCallback } from "react";
 import { apiUrl } from "./constants";
 import { Todo } from "./Models";
-import { todoListState } from "./Atoms";
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { todoListState } from './Atoms';
+import { useRecoilValue, useRecoilCallback } from 'recoil';
 
 export const useTodos = () => useRecoilValue(todoListState);
 
-export const useLoadTodos = () => {
-    const setTodos = useSetRecoilState(todoListState);
-
-    return useCallback(
-        async () => {
+export const useLoadTodos = () =>
+    useRecoilCallback(
+        async ({ set }) => {
             const response = await fetch(`${apiUrl}/todos`);
             const results = await response.json();
-            return setTodos(results);
-        },
-        [setTodos]
+            return set(todoListState, results);
+        }
     );
-}
 
-export const useCreateTodo = () => {
-    const setTodos = useSetRecoilState(todoListState);
-
-    return useCallback(
-        async (content: string) => {
+export const useCreateTodo = () =>
+    useRecoilCallback(
+        async ({ set }, content: string) => {
             const payload = {
                 content
             };
@@ -33,18 +26,14 @@ export const useCreateTodo = () => {
                 body: JSON.stringify(payload)
             });
             const todo = await response.json();
-            setTodos(todos => todos.concat(todo));
-        },
-        [setTodos]
+            set(todoListState, todos => todos.concat(todo));
+        }
     );
-}
 
-export const useChangeContent = () => {
-    const setTodos = useSetRecoilState(todoListState);
-
-    return useCallback(
-        (todo: Todo, content: string) => {
-            setTodos(todos => {
+export const useChangeContent = () =>
+    useRecoilCallback(
+        ({ set }, todo: Todo, content: string) => {
+            set(todoListState, todos => {
                 return todos.map(t => {
                     if (t.id === todo.id) {
                         return {
@@ -56,15 +45,11 @@ export const useChangeContent = () => {
                 });
             });
         },
-        [setTodos]
     );
-}
 
-export const useUpdateTodo = () => {
-    const setTodos = useSetRecoilState(todoListState);
-
-    return useCallback(
-        async (id: number, content: string) => {
+export const useUpdateTodo = () =>
+    useRecoilCallback(
+        async ({ set }, id: number, content: string) => {
             const payload = {
                 id,
                 content
@@ -75,7 +60,7 @@ export const useUpdateTodo = () => {
                 body: JSON.stringify(payload)
             });
             const todo = await response.json();
-            setTodos(todos => {
+            set(todoListState, todos => {
                 return todos.map(t => {
                     if (t.id === todo.id) {
                         return todo;
@@ -83,23 +68,17 @@ export const useUpdateTodo = () => {
                     return t;
                 });
             });
-        },
-        [setTodos]
+        }
     );
-}
 
-export const useDeleteTodo = () => {
-    const setTodos = useSetRecoilState(todoListState);
-
-    return useCallback(
-        async (id: number) => {
+export const useDeleteTodo = () =>
+    useRecoilCallback(
+        async ({ set }, id: number) => {
             await fetch(`${apiUrl}/todos/${id}`, {
                 method: 'DELETE'
             });
-            setTodos(todos => {
+            set(todoListState, todos => {
                 return todos.filter(t => t.id !== id);
             });
-        },
-        [setTodos]
+        }
     );
-}
