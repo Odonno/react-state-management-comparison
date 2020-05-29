@@ -1,11 +1,8 @@
-import React, { createContext, ReactNode, useContext, useCallback, Dispatch, SetStateAction } from "react";
+import React, { createContext, ReactNode, useContext, useCallback } from "react";
 import { apiUrl } from "./constants";
 import { Todo } from "./Models";
 import { todoListState } from "./Atoms";
-const {
-    useRecoilValue,
-    useSetRecoilState
-} = require('recoil');
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 export type StoreContextState = {
     loadTodos: () => Promise<void>;
@@ -22,7 +19,7 @@ type StoreContextProviderProps = {
 };
 
 export const StoreProvider = ({ children }: StoreContextProviderProps) => {
-    const setTodos: Dispatch<SetStateAction<Todo[]>> = useSetRecoilState(todoListState);
+    const setTodos = useSetRecoilState(todoListState);
 
     const loadTodos = useCallback(
         async () => {

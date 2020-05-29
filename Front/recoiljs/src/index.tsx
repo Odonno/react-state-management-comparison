@@ -6,7 +6,7 @@ import { teal } from '@material-ui/core/colors';
 import './index.css';
 import App from './App';
 import { StoreProvider } from './StoreContext';
-const { RecoilRoot } = require('recoil');
+import { RecoilRoot } from 'recoil';
 
 const theme = createMuiTheme({
     palette: {
