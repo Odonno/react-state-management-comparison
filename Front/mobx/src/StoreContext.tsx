@@ -1,17 +1,17 @@
 import React, { createContext, ReactNode, useContext } from "react";
-import { TodoList } from './Models';
+import { Store } from './Models';
 
-const StoreContext = createContext<TodoList>({} as TodoList);
+const StoreContext = createContext<Store>({} as Store);
 
 type StoreContextProviderProps = {
     children?: ReactNode;
 };
 
 export const StoreProvider = ({ children }: StoreContextProviderProps) => {
-    const todoList = new TodoList();
+    const store = new Store();
 
     return (
-        <StoreContext.Provider value={todoList}>
+        <StoreContext.Provider value={store}>
             {children}
         </StoreContext.Provider>
     );

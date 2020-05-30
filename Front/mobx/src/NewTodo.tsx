@@ -7,7 +7,7 @@ type Props = {
 };
 
 const NewTodo = (props: Props) => {
-    const todoList = useStore();
+    const store = useStore();
 
     const handleNewTodoKeyPressed = (e: React.SyntheticEvent<any, Event>) => {
         const inputTarget = e.target as HTMLInputElement;
@@ -15,7 +15,7 @@ const NewTodo = (props: Props) => {
         const eventKey = (e as any).key;
 
         if (inputTarget && eventKey && eventKey.toLowerCase() === 'enter' && value) {
-            todoList.create(value)
+            store.create(value)
                 .finally(() => {
                     inputTarget.value = '';
                 });

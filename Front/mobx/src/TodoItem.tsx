@@ -15,7 +15,7 @@ const TodoItem = (props: Props) => {
         todo
     } = props;
 
-    const todoList = useStore();
+    const store = useStore();
 
     const handleTodoChanged = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const inputTarget = e.target as HTMLInputElement;
@@ -26,11 +26,11 @@ const TodoItem = (props: Props) => {
     }
     
     const handleTodoBlur = () => {
-        todoList.updateTodo(todo.id, todo.content);
+        store.updateTodo(todo.id, todo.content);
     }
 
     const handleRemoveTodoButtonClicked = (id: number) => {
-        todoList.delete(id);
+        store.delete(id);
     }
 
     return useObserver(() =>

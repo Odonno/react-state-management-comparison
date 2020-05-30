@@ -12,7 +12,7 @@ export class Todo {
     }
 };
 
-export class TodoList {
+export class Store {
     @observable.shallow list: Todo[] = [];
 
     constructor() {

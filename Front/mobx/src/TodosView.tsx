@@ -4,11 +4,11 @@ import { useObserver } from 'mobx-react-lite';
 import { useStore } from './StoreContext';
 
 const TodosView = () => {
-    const todoList = useStore();
+    const store = useStore();
 
     return useObserver(() => 
         <>
-            {todoList.list.map(todo => <TodoItem key={todo.id} todo={todo} />)}
+            {store.list.map(todo => <TodoItem key={todo.id} todo={todo} />)}
         </>
     );
 }
