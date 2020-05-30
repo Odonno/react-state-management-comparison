@@ -5,7 +5,6 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import { teal } from '@material-ui/core/colors';
 import './index.css';
 import App from './App';
-import { StoreProvider } from './StoreContext';
 
 const theme = createMuiTheme({
     palette: {
@@ -17,9 +16,7 @@ const theme = createMuiTheme({
 
 ReactDOM.render(
     <ThemeProvider theme={theme}>
-        <StoreProvider>
-            <App />
-        </StoreProvider>
+        <App />
     </ThemeProvider>,
     document.getElementById('root')
 );

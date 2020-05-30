@@ -1,25 +1,21 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import './App.css';
 import Logo from './Logo';
-import { useStore } from './StoreContext';
 import TodosView from './TodosView';
 import NewTodo from './NewTodo';
+import { StoreProvider } from './StoreContext';
 
 const App = () => {
-  const { loadTodos } = useStore();
-
-  useEffect(() => {
-    loadTodos();
-  }, [loadTodos]);
-
   return (
     <div className="app">
       <header className="header">
         <Logo />
 
-        <TodosView />
+        <StoreProvider>
+          <TodosView />
 
-        <NewTodo />
+          <NewTodo />
+        </StoreProvider>
       </header>
     </div>
   );
