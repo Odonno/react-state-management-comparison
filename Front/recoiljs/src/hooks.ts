@@ -11,7 +11,8 @@ export const useLoadTodos = () =>
             const response = await fetch(`${apiUrl}/todos`);
             const results = await response.json();
             return set(todoListState, results);
-        }
+        },
+        []
     );
 
 export const useCreateTodo = () =>
@@ -27,7 +28,8 @@ export const useCreateTodo = () =>
             });
             const todo = await response.json();
             set(todoListState, todos => todos.concat(todo));
-        }
+        },
+        []
     );
 
 export const useChangeContent = () =>
@@ -45,6 +47,7 @@ export const useChangeContent = () =>
                 });
             });
         },
+        []
     );
 
 export const useUpdateTodo = () =>
@@ -68,7 +71,8 @@ export const useUpdateTodo = () =>
                     return t;
                 });
             });
-        }
+        },
+        []
     );
 
 export const useDeleteTodo = () =>
@@ -80,5 +84,6 @@ export const useDeleteTodo = () =>
             set(todoListState, todos => {
                 return todos.filter(t => t.id !== id);
             });
-        }
+        },
+        []
     );
